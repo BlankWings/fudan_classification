@@ -1,0 +1,235 @@
+Usage: test.py [options]
+
+Options:
+  -h, --help            show this help message and exit
+  --report              Print a detailed classification report.
+  --chi2_select=SELECT_CHI2
+                        Select some number of features using a chi-squared
+                        test
+  --confusion_matrix    Print the confusion matrix.
+  --top10               Print ten most discriminative terms per class for
+                        every classifier.
+  --all_categories      Whether to use all categories or not.
+  --use_hashing         Use a hashing vectorizer.
+  --n_features=N_FEATURES
+                        n_features when using the hashing vectorizer.
+  --filtered            Remove newsgroup information that is easily overfit:
+                        headers, signatures, and quoting.
+
+Loading 20 newsgroups dataset for categories:
+['alt.atheism', 'talk.religion.misc', 'comp.graphics', 'sci.space']
+data loaded
+9783 documents - 132.383MB (training set)
+9809 documents - 134.625MB (test set)
+4 categories
+
+Extracting features from the training data using a sparse vectorizer
+done in 8.395661s at 15.768MB/s
+n_samples: 9783, n_features: 297774
+
+Extracting features from the test data using the same vectorizer
+done in 8.341088s at 16.140MB/s
+n_samples: 9809, n_features: 297774
+
+================================================================================
+Ridge Classifier
+________________________________________________________________________________
+Training:
+RidgeClassifier(alpha=1.0, class_weight=None, copy_X=True, fit_intercept=True,
+        max_iter=None, normalize=False, random_state=None, solver='lsqr',
+        tol=0.01)
+/home/guopp/anaconda3/lib/python3.6/site-packages/sklearn/linear_model/ridge.py:319: UserWarning: In Ridge, only 'sag' solver can currently fit the intercept when X is sparse. Solver has been automatically changed into 'sag'.
+  warnings.warn("In Ridge, only 'sag' solver can currently fit the "
+train time: 14.190s
+test time:  0.112s
+accuracy:   0.928
+dimensionality: 297774
+/home/guopp/anaconda3/lib/python3.6/site-packages/sklearn/linear_model/stochastic_gradient.py:117: DeprecationWarning: n_iter parameter is deprecated in 0.19 and will be removed in 0.21. Use max_iter and tol instead.
+  DeprecationWarning)
+density: 0.999987
+
+
+================================================================================
+Perceptron
+________________________________________________________________________________
+Training:
+Perceptron(alpha=0.0001, class_weight=None, eta0=1.0, fit_intercept=True,
+      max_iter=None, n_iter=50, n_jobs=1, penalty=None, random_state=0,
+      shuffle=True, tol=None, verbose=0, warm_start=False)
+train time: 9.273s
+test time:  0.110s
+accuracy:   0.931
+dimensionality: 297774
+/home/guopp/anaconda3/lib/python3.6/site-packages/sklearn/linear_model/stochastic_gradient.py:117: DeprecationWarning: n_iter parameter is deprecated in 0.19 and will be removed in 0.21. Use max_iter and tol instead.
+  DeprecationWarning)
+density: 0.093336
+
+
+================================================================================
+Passive-Aggressive
+________________________________________________________________________________
+Training:
+PassiveAggressiveClassifier(C=1.0, average=False, class_weight=None,
+              fit_intercept=True, loss='hinge', max_iter=None, n_iter=50,
+              n_jobs=1, random_state=None, shuffle=True, tol=None,
+              verbose=0, warm_start=False)
+train time: 14.159s
+test time:  0.107s
+accuracy:   0.941
+dimensionality: 297774
+density: 0.326262
+
+
+================================================================================
+kNN
+________________________________________________________________________________
+Training:
+KNeighborsClassifier(algorithm='auto', leaf_size=30, metric='minkowski',
+           metric_params=None, n_jobs=1, n_neighbors=10, p=2,
+           weights='uniform')
+train time: 0.009s
+test time:  12.754s
+accuracy:   0.885
+
+================================================================================
+Random forest
+________________________________________________________________________________
+Training:
+RandomForestClassifier(bootstrap=True, class_weight=None, criterion='gini',
+            max_depth=None, max_features='auto', max_leaf_nodes=None,
+            min_impurity_decrease=0.0, min_impurity_split=None,
+            min_samples_leaf=1, min_samples_split=2,
+            min_weight_fraction_leaf=0.0, n_estimators=100, n_jobs=1,
+            oob_score=False, random_state=None, verbose=0,
+            warm_start=False)
+train time: 33.885s
+test time:  2.149s
+accuracy:   0.866
+
+================================================================================
+L2 penalty
+________________________________________________________________________________
+Training:
+LinearSVC(C=1.0, class_weight=None, dual=False, fit_intercept=True,
+     intercept_scaling=1, loss='squared_hinge', max_iter=1000,
+     multi_class='ovr', penalty='l2', random_state=None, tol=0.001,
+     verbose=0)
+train time: 8.144s
+test time:  0.094s
+accuracy:   0.936
+dimensionality: 297774
+/home/guopp/anaconda3/lib/python3.6/site-packages/sklearn/linear_model/stochastic_gradient.py:117: DeprecationWarning: n_iter parameter is deprecated in 0.19 and will be removed in 0.21. Use max_iter and tol instead.
+  DeprecationWarning)
+density: 1.000000
+
+
+________________________________________________________________________________
+Training:
+SGDClassifier(alpha=0.0001, average=False, class_weight=None, epsilon=0.1,
+       eta0=0.0, fit_intercept=True, l1_ratio=0.15,
+       learning_rate='optimal', loss='hinge', max_iter=None, n_iter=50,
+       n_jobs=1, penalty='l2', power_t=0.5, random_state=None,
+       shuffle=True, tol=None, verbose=0, warm_start=False)
+train time: 9.195s
+test time:  0.107s
+accuracy:   0.935
+dimensionality: 297774
+density: 0.266701
+
+
+================================================================================
+L1 penalty
+________________________________________________________________________________
+Training:
+LinearSVC(C=1.0, class_weight=None, dual=False, fit_intercept=True,
+     intercept_scaling=1, loss='squared_hinge', max_iter=1000,
+     multi_class='ovr', penalty='l1', random_state=None, tol=0.001,
+     verbose=0)
+train time: 11.848s
+test time:  0.103s
+accuracy:   0.934
+dimensionality: 297774
+density: 0.000412
+
+
+________________________________________________________________________________
+Training:
+SGDClassifier(alpha=0.0001, average=False, class_weight=None, epsilon=0.1,
+       eta0=0.0, fit_intercept=True, l1_ratio=0.15,
+       learning_rate='optimal', loss='hinge', max_iter=None, n_iter=50,
+       n_jobs=1, penalty='l1', power_t=0.5, random_state=None,
+       shuffle=True, tol=None, verbose=0, warm_start=False)
+/home/guopp/anaconda3/lib/python3.6/site-packages/sklearn/linear_model/stochastic_gradient.py:117: DeprecationWarning: n_iter parameter is deprecated in 0.19 and will be removed in 0.21. Use max_iter and tol instead.
+  DeprecationWarning)
+train time: 24.235s
+test time:  0.116s
+accuracy:   0.898
+dimensionality: 297774
+density: 0.000294
+
+
+================================================================================
+Elastic-Net penalty
+________________________________________________________________________________
+Training:
+SGDClassifier(alpha=0.0001, average=False, class_weight=None, epsilon=0.1,
+       eta0=0.0, fit_intercept=True, l1_ratio=0.15,
+       learning_rate='optimal', loss='hinge', max_iter=None, n_iter=50,
+       n_jobs=1, penalty='elasticnet', power_t=0.5, random_state=None,
+       shuffle=True, tol=None, verbose=0, warm_start=False)
+/home/guopp/anaconda3/lib/python3.6/site-packages/sklearn/linear_model/stochastic_gradient.py:117: DeprecationWarning: n_iter parameter is deprecated in 0.19 and will be removed in 0.21. Use max_iter and tol instead.
+  DeprecationWarning)
+train time: 33.276s
+test time:  0.109s
+accuracy:   0.920
+dimensionality: 297774
+density: 0.010410
+
+
+================================================================================
+NearestCentroid (aka Rocchio classifier)
+________________________________________________________________________________
+Training:
+NearestCentroid(metric='euclidean', shrink_threshold=None)
+train time: 0.100s
+test time:  0.127s
+accuracy:   0.799
+
+================================================================================
+Naive Bayes
+________________________________________________________________________________
+Training:
+MultinomialNB(alpha=0.01, class_prior=None, fit_prior=True)
+train time: 0.188s
+test time:  0.113s
+accuracy:   0.870
+dimensionality: 297774
+density: 1.000000
+
+
+________________________________________________________________________________
+Training:
+BernoulliNB(alpha=0.01, binarize=0.0, class_prior=None, fit_prior=True)
+train time: 0.198s
+test time:  0.154s
+accuracy:   0.768
+dimensionality: 297774
+density: 1.000000
+
+
+================================================================================
+LinearSVC with L1-based feature selection
+________________________________________________________________________________
+Training:
+Pipeline(memory=None,
+     steps=[('feature_selection', SelectFromModel(estimator=LinearSVC(C=1.0, class_weight=None, dual=False, fit_intercept=True,
+     intercept_scaling=1, loss='squared_hinge', max_iter=1000,
+     multi_class='ovr', penalty='l1', random_state=None, tol=0.001,
+     verbose=0),
+        norm_order=1, prefit=...ax_iter=1000,
+     multi_class='ovr', penalty='l2', random_state=None, tol=0.0001,
+     verbose=0))])
+train time: 13.122s
+test time:  0.059s
+test time:  0.059s
+accuracy:   0.925

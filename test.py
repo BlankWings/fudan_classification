@@ -5,7 +5,8 @@
 # License: BSD 3 clause
 
 from __future__ import print_function
-
+from helper import *
+from sklearn.datasets.base import Bunch
 import logging
 import numpy as np
 from optparse import OptionParser
@@ -102,13 +103,34 @@ else:
 print("Loading 20 newsgroups dataset for categories:")
 print(categories if categories else "all")
 
-data_train = fetch_20newsgroups(subset='train', categories=categories,
-                                shuffle=True, random_state=42,
-                                remove=remove)
+def genBunch(processDataPath):  # processDataPath类似与"../data/processData/train"
+    bunch = Bunch(target=[], data=[], tfidf=[], target_names=[])
+    subfileList = os.listdir(processDataPath)
+    for subfile in subfileList:
+        bunch.target_names.append(subfile)
+        label = eval(subfile.split("C")[1].split("-")[0])# 提取数字标签
+        label = {3:0,4:1,5:2,6:3,7:4,11:5,15:6,16:7,17:8,19:9,23:10,29:11,31:12,32:13,34:14,35:15,36:16,37:17,38:18,39:19}[label]
+        subfileName = os.path.join(processDataPath, subfile)
+        with open(subfileName, "r", encoding="utf-8") as f:
+            for content in f.readlines():
+                lenth = len(content.split(" "))
+                if lenth > 20:
+                    bunch.target.append(label)
+                    bunch.data.append(content.strip())
+    bunch.target_names = list(set(sorted(bunch.target_names)))
+    return bunch
 
-data_test = fetch_20newsgroups(subset='test', categories=categories,
-                               shuffle=True, random_state=42,
-                               remove=remove)
+data_train = genBunch(PROCESS_TRAIN_DATA_PATH)
+data_test = genBunch(PROCESS_TEST_DATA_PATH)
+
+# data_train = fetch_20newsgroups(subset='train', categories=categories,
+#                                 shuffle=True, random_state=42,
+#                                 remove=remove)
+#
+#
+# data_test = fetch_20newsgroups(subset='test', categories=categories,
+#                                shuffle=True, random_state=42,
+#                                remove=remove)
 print('data loaded')
 
 # order of labels in `target_names` can be different from `categories`

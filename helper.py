@@ -10,7 +10,12 @@ STOPWORDS_PATH = os.path.join(BASE_DIR, "data/stopWords/stopWords.txt") # 停止
 RESULT_FILE = os.path.join(BASE_DIR, "data/result/result.txt") # 储存生成结果
 TRAIN_BUNCH_FILE = os.path.join(BASE_DIR, "model/train_bunch.pkl")  # 储存train_bunch
 TEST_BUNCH_FILE = os.path.join(BASE_DIR, "model/test_bunch.pkl")  # 储存test_bunch
+# TRAIN_BUNCH_FILE_DL = os.path.join(BASE_DIR, "model/train_bunch_dl.pkl")  # 储存train_bunch
+# TEST_BUNCH_FILE_DL = os.path.join(BASE_DIR, "model/test_bunch_dl.pkl")  # 储存test_bunch
 PLOT_FILE = os.path.join(BASE_DIR, "data/result/plot")
+
+DL_MODEL_FILE = os.path.join(BASE_DIR, "model/text_cnn.h5")
+TOKEN_MODEL_FILE = os.path.join(BASE_DIR, "model/token_dict.pkl")
 
 
 # 类别列表

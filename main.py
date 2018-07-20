@@ -88,9 +88,35 @@ if __name__ == '__main__':
     testBunch = joblib.load(TEST_BUNCH_FILE)
     feature_select = Feature_Selector(trainBunch, testBunch) # 实例化类
 
-    from sklearn.linear_model import RidgeClassifier
+    # 特征哈希
+    # from sklearn.svm import LinearSVC
+    # print(trainBunch.vectors.shape)
+    # from sklearn.feature_extraction.text import HashingVectorizer
+    # haxi = HashingVectorizer(n_features=2**16, non_negative=True)
+    # trainBunch.haxi = haxi.transform(trainBunch.contents)
+    # testBunch.haxi = haxi.transform(testBunch.contents)
+    # print(trainBunch.haxi.shape)
+    # result_dict = {}
+    # for n_f in [100, 200, 500, 1000, 2000,5000, 10000, 20000,50000, 65536]:
+    #     select = SelectKBest(chi2, n_f)
+    #     trainBunch.select_haxi = select.fit_transform(trainBunch.haxi, trainBunch.labels)
+    #     testBunch.select_haxi = select.transform(testBunch.haxi)
+    #     tfidf  = TfidfTransformer(sublinear_tf=True)
+    #     trainBunch.select_tfidf = tfidf.fit_transform(trainBunch.select_haxi, trainBunch.labels)
+    #     testBunch.select_tfidf = tfidf.transform(testBunch.select_haxi)
+    #     model = LinearSVC()
+    #     model.fit(trainBunch.select_tfidf, trainBunch.labels)
+    #     predict_y = model.predict(testBunch.select_tfidf)
+    #     F1 = metrics.f1_score(testBunch.labels, predict_y, average='weighted')
+    #     F1 = eval("{:.3f}".format(F1))  # 截取小数点后3位
+    #     result_dict[n_f] = F1
+    # plot_result(result_dict, "haxi")
+
+
+    from sklearn.linear_model import RidgeClassifierCV
     from sklearn.svm import LinearSVC
     from sklearn.linear_model import SGDClassifier
+    from sklearn.linear_model import LogisticRegression
     from sklearn.linear_model import Perceptron
     from sklearn.linear_model import PassiveAggressiveClassifier
     from sklearn.naive_bayes import BernoulliNB, MultinomialNB
@@ -98,19 +124,21 @@ if __name__ == '__main__':
     from sklearn.neighbors import NearestCentroid
     from sklearn.ensemble import RandomForestClassifier
     from sklearn.tree import DecisionTreeClassifier
-    clf_model = RandomForestClassifier()  # 定义分类器
+    clf_model = LogisticRegression(solver="saga", multi_class="multinomial")  # 定义分类器
 
     all_feature_num = trainBunch.vectors.shape[1]
     select_feature_number_list = [50, 100, 200, 500, 1000, 2000, 5000, 10000, 20000, 50000, 100000, 200000, all_feature_num]  # 特征选择的数量
     result_dict = {}
     print("准备工作完成！！！！")
     # 测试不同的特征选择方法。
-    # print("正在进行特征选择》》》》")
+    print("正在进行特征选择》》》》")
     pool = multiprocessing.Pool(processes=12)
     for select_feature_number in select_feature_number_list:
-        select_feature_method = feature_select.chi2(num=select_feature_number)
         result_dict[select_feature_number] = pool.map(clf2result, (select_feature_number,))[0]   # map方法好像不太能利用多核优势, 这个不是真正的多进程。
     pool.close()
     pool.join()
-    plot_result(result_dict,"RandomForestClassifier")
+    plot_result(result_dict,"LogisticRegression")
+
+
+
 
